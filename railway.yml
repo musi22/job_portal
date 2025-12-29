@@ -1,0 +1,52 @@
+---
+- id: jobtaker-frontend
+  name: JobTaker Frontend
+  runtime: node
+  buildCommand: "cd frontend && npm install && npm run build"
+  startCommand: "cd frontend && npm start"
+  envs:
+    - key: NEXT_PUBLIC_API_URL
+      value: https://your-api-domain.com
+    - key: NODE_ENV
+      value: production
+
+- id: jobtaker-auth
+  name: JobTaker Auth Service
+  runtime: node
+  buildCommand: "cd services/auth && npm install"
+  startCommand: "cd services/auth && npm run dev"
+  envs:
+    - key: PORT
+      value: 5000
+    - key: NODE_ENV
+      value: production
+    - key: DB_URL
+      syncFrom: jobtaker-frontend
+      key: DATABASE_URL
+
+- id: jobtaker-user
+  name: JobTaker User Service
+  runtime: node
+  buildCommand: "cd services/user && npm install"
+  startCommand: "cd services/user && npm run dev"
+  envs:
+    - key: PORT
+      value: 5002
+
+- id: jobtaker-job
+  name: JobTaker Job Service
+  runtime: node
+  buildCommand: "cd services/job && npm install"
+  startCommand: "cd services/job && npm run dev"
+  envs:
+    - key: PORT
+      value: 5003
+
+- id: jobtaker-payment
+  name: JobTaker Payment Service
+  runtime: node
+  buildCommand: "cd services/payment && npm install"
+  startCommand: "cd services/payment && npm run dev"
+  envs:
+    - key: PORT
+      value: 5004
