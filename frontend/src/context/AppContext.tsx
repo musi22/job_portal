@@ -6,11 +6,11 @@ import toast, { Toaster } from "react-hot-toast";
 import Cookies from "js-cookie";
 import axios from "axios";
 
-export const utils_service = "http://35.154.186.96:5001";
-export const auth_service = "http://35.154.186.96:5000";
-export const user_service = "http://35.154.186.96:5002";
-export const job_service = "http://35.154.186.96:5003";
-export const payment_service = "http://35.154.186.96:5004";
+export const utils_service = "http://localhost:5001";
+export const auth_service = "http://localhost:5000";
+export const user_service = "http://localhost:5002";
+export const job_service = "http://localhost:5003";
+export const payment_service = "http://localhost:5004";
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
@@ -28,6 +28,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        timeout: 5000,
       });
 
       setUser(data);
@@ -187,6 +188,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          timeout: 5000,
         }
       );
 
